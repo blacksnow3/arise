@@ -76,8 +76,8 @@ fun Register_Screen(navController: NavHostController,){
 
 
         // Declare a variable to hold the username input
-
-        var fullname = remember { mutableStateOf("") }
+        var lastname = remember { mutableStateOf("") }
+        var firstname = remember { mutableStateOf("") }
         var confirm_password = remember { mutableStateOf("") }
         var email by remember { mutableStateOf("") }
         var password by remember { mutableStateOf("") }
@@ -85,9 +85,9 @@ fun Register_Screen(navController: NavHostController,){
 
         // Create an OutlinedTextField for input
         OutlinedTextField(
-            value = fullname.value,
-            onValueChange = { fullname.value = it }, // Update the state when the user types
-            label = { Text(text = "First name") },
+            value = firstname.value,
+            onValueChange = { firstname.value = it }, // Update the state when the user types
+            label = { Text(text = "first name") },
             singleLine = true,
             modifier = Modifier
                 .fillMaxWidth()
@@ -104,6 +104,25 @@ fun Register_Screen(navController: NavHostController,){
         )
         Spacer(modifier = Modifier.height(20.dp))
 
+        OutlinedTextField(
+            value = lastname.value,
+            onValueChange = { lastname.value = it }, // Update the state when the user types
+            label = { Text(text = "last name") },
+            singleLine = true,
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(horizontal = 20.dp),
+            textStyle = TextStyle(color= Color.White),
+            leadingIcon = {
+                Icon(
+                    imageVector = Icons.Default.Person,
+                    contentDescription = "first name",
+
+                    )
+
+            }
+        )
+        Spacer(modifier = Modifier.height(20.dp))
 
         OutlinedTextField(
             value = email,

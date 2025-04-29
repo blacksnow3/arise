@@ -8,10 +8,10 @@
             <InsightsFilterSettings>
               <option name="connection">
                 <ConnectionSetting>
-                  <option name="appId" value="PLACEHOLDER" />
-                  <option name="mobileSdkAppId" value="" />
-                  <option name="projectId" value="" />
-                  <option name="projectNumber" value="" />
+                  <option name="appId" value="com.arise.fromtheashes" />
+                  <option name="mobileSdkAppId" value="1:133636318114:android:a07a2056eac7117a2c88fb" />
+                  <option name="projectId" value="from-the-ashes-3aad9" />
+                  <option name="projectNumber" value="133636318114" />
                 </ConnectionSetting>
               </option>
               <option name="signal" value="SIGNAL_UNSPECIFIED" />

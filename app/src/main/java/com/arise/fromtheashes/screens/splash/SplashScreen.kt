@@ -21,6 +21,7 @@ import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
 import com.arise.fromtheashes.R
+import com.arise.fromtheashes.navigation.ROUTE_HOME
 
 import kotlinx.coroutines.delay
 
@@ -28,7 +29,7 @@ import kotlinx.coroutines.delay
 fun SplashScreen(navController: NavHostController) {
     LaunchedEffect(Unit) {
         delay(3000)
-        navController.navigate("login") {
+        navController.navigate(ROUTE_HOME) {
             popUpTo("splashscreen") { inclusive = true }
         }
     }
