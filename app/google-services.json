@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "133636318114",
+    "project_id": "from-the-ashes-3aad9",
+    "storage_bucket": "from-the-ashes-3aad9.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:133636318114:android:a07a2056eac7117a2c88fb",
+        "android_client_info": {
+          "package_name": "com.arise.fromtheashes"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBLewy7f9VuuWR0ZNurwe_TSFGIIspG7AQ"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
