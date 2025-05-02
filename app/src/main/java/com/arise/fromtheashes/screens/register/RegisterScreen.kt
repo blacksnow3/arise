@@ -1,6 +1,7 @@
 package com.arise.fromtheashes.screens.register
+import android.content.Context
 import androidx.compose.foundation.Image
-
+import androidx.compose.ui.text.input.TextFieldValue
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.fillMaxSize
@@ -33,6 +34,7 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.unit.dp
 import androidx.compose.material3.TextButton
+import androidx.compose.ui.platform.LocalContext
 
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
@@ -41,6 +43,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
 import com.arise.fromtheashes.R
+import com.arise.fromtheashes.data.AuthViewModel
 
 
 @Composable
@@ -55,7 +58,7 @@ fun Register_Screen(navController: NavHostController,){
         painterResource(id = R.drawable.logo),
         contentDescription = "logo",
         modifier = Modifier
-            .size(80.dp)
+            .size(50.dp)
             .clip(CircleShape)
     )
         Text(
@@ -76,17 +79,17 @@ fun Register_Screen(navController: NavHostController,){
 
 
         // Declare a variable to hold the username input
-        var lastname = remember { mutableStateOf("") }
-        var firstname = remember { mutableStateOf("") }
-        var confirm_password = remember { mutableStateOf("") }
-        var email by remember { mutableStateOf("") }
-        var password by remember { mutableStateOf("") }
-
+        var lname by remember { mutableStateOf(TextFieldValue("")) }
+        var fname by remember { mutableStateOf (TextFieldValue("")) }
+        var conpass by remember { mutableStateOf(TextFieldValue("")) }
+        var email by remember { mutableStateOf(TextFieldValue("")) }
+        var pass by remember { mutableStateOf(TextFieldValue("")) }
+        var context = LocalContext.current
 
         // Create an OutlinedTextField for input
         OutlinedTextField(
-            value = firstname.value,
-            onValueChange = { firstname.value = it }, // Update the state when the user types
+            value = fname,
+            onValueChange = { fname = it }, // Update the state when the user types
             label = { Text(text = "first name") },
             singleLine = true,
             modifier = Modifier
@@ -105,8 +108,8 @@ fun Register_Screen(navController: NavHostController,){
         Spacer(modifier = Modifier.height(20.dp))
 
         OutlinedTextField(
-            value = lastname.value,
-            onValueChange = { lastname.value = it }, // Update the state when the user types
+            value = lname,
+            onValueChange = { lname = it }, // Update the state when the user types
             label = { Text(text = "last name") },
             singleLine = true,
             modifier = Modifier
@@ -145,8 +148,8 @@ fun Register_Screen(navController: NavHostController,){
         Spacer(modifier = Modifier.height(20.dp))
 
         OutlinedTextField(
-            value = password,
-            onValueChange = { password = it }, // Update the state when the user types
+            value = pass,
+            onValueChange = { pass = it }, // Update the state when the user types
             label = { Text(text = "password") },
             singleLine = true,
             visualTransformation = PasswordVisualTransformation(),
@@ -164,8 +167,8 @@ fun Register_Screen(navController: NavHostController,){
         Spacer(modifier = Modifier.height(20.dp))
 
         OutlinedTextField(
-            value = confirm_password.value,
-            onValueChange = { confirm_password.value = it }, // Update the state when the user types
+            value = conpass,
+            onValueChange = { conpass = it }, // Update the state when the user types
             label = { Text(text = "confirm password") },
             singleLine = true,
             visualTransformation = PasswordVisualTransformation(),
@@ -182,7 +185,11 @@ fun Register_Screen(navController: NavHostController,){
         )
 
         Spacer(modifier = Modifier.height(20.dp))
-        Button(onClick = {}
+        Button(onClick = {
+        val myregister= AuthViewModel(navController, context)
+            myregister.signup(fname.text.trim(),lname.text.trim(),email.text.trim(),pass.text.trim(),conpass.text.trim())
+
+        }
         ) {
             Text("Register")}
 

@@ -7,9 +7,9 @@ class User {
     var pass: String=""
     var conpass: String=""
     var userid: String=""
-    constructor(fname: String, lname: String,
-                email: String, pass: String,
-                conpass: String, userid: String){
+    constructor(fname:String, lname:String,
+                email:String, pass:String,
+                conpass:String, userid:String){
         this.fname=fname
         this.lname=lname
         this.email=email

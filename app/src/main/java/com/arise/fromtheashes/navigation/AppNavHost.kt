@@ -14,6 +14,9 @@ import com.arise.fromtheashes.navigation.ROUTE_LOGIN
 import com.arise.fromtheashes.navigation.ROUTE_REGISTER
 import com.arise.fromtheashes.screens.home.Home_Screen
 import com.arise.fromtheashes.screens.login.Login_Screen
+import com.arise.fromtheashes.screens.products.AddProductsScreen
+import com.arise.fromtheashes.screens.products.UpdateProductsScreen
+import com.arise.fromtheashes.screens.products.ViewProductsScreen
 import com.arise.fromtheashes.screens.register.Register_Screen
 import com.arise.fromtheashes.screens.splash.SplashScreen
 
@@ -41,6 +44,15 @@ navController: NavHostController= rememberNavController(),
         {
             SplashScreen(navController)
         }
+        composable(ROUTE_ADD_PRODUCT) {
+            AddProductsScreen(navController) }
+        composable(ROUTE_VIEW_PRODUCT) {
+            ViewProductsScreen(navController)
+        }
+        composable(ROUTE_UPDATE_PRODUCT+"/{id}") { passedData ->
+            UpdateProductsScreen(navController, passedData.arguments!!.getString("id")!!)
+        }
+
 
     }
 }
