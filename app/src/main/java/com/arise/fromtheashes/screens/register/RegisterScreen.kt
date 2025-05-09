@@ -44,6 +44,9 @@ import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
 import com.arise.fromtheashes.R
 import com.arise.fromtheashes.data.AuthViewModel
+import com.arise.fromtheashes.navigation.ROUTE_ADD_PRODUCT
+
+import com.arise.fromtheashes.navigation.ROUTE_VIEW_PRODUCT
 
 
 @Composable

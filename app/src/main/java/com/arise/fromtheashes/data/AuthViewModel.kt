@@ -5,6 +5,8 @@ import android.content.Context
 import android.widget.Toast
 import androidx.navigation.NavHostController
 import com.arise.fromtheashes.model.User
+import com.arise.fromtheashes.navigation.ROUTE_ADD_PRODUCT
+import com.arise.fromtheashes.navigation.ROUTE_ADD_STUDENT
 import com.arise.fromtheashes.navigation.ROUTE_LOGIN
 import com.arise.fromtheashes.navigation.ROUTE_REGISTER
 import com.google.firebase.auth.FirebaseAuth
@@ -30,7 +32,7 @@ class AuthViewModel (
 
                           }else{
                               Toast.makeText(context,"${it.exception!!.message}",Toast.LENGTH_LONG).show()
-                              navController.navigate(ROUTE_LOGIN)
+
                           }
                       }
                 }
@@ -42,7 +44,7 @@ class AuthViewModel (
 
                 }
             }
-        }
+        }}
     fun login(email: String, pass: String) {
         if (email.isEmpty() || pass.isEmpty()) {
             Toast.makeText(context, "Please fill in all details", Toast.LENGTH_LONG).show()
@@ -50,7 +52,7 @@ class AuthViewModel (
             mAuth.signInWithEmailAndPassword(email, pass).addOnCompleteListener {
                 if (it.isSuccessful) {
                     Toast.makeText(context, "Logged in Successfully", Toast.LENGTH_LONG).show()
-                    navController.navigate("home")
+                    navController.navigate(ROUTE_ADD_STUDENT)
                 } else {
                     Toast.makeText(context, "${it.exception!!.message}", Toast.LENGTH_LONG).show()
                     navController.navigate(ROUTE_LOGIN)
@@ -61,14 +63,14 @@ class AuthViewModel (
         }
 
     }
+
+
         fun logout(){
             mAuth.signOut()
             navController.navigate(ROUTE_LOGIN)
         }
         fun isloggedin():Boolean{
             return mAuth.currentUser !=null
-        }
-
     }
 
 

@@ -12,6 +12,7 @@ import androidx.navigation.compose.rememberNavController
 import com.arise.fromtheashes.navigation.ROUTE_HOME
 import com.arise.fromtheashes.navigation.ROUTE_LOGIN
 import com.arise.fromtheashes.navigation.ROUTE_REGISTER
+import com.arise.fromtheashes.screens.Dashboard.DashboardScreen
 import com.arise.fromtheashes.screens.home.Home_Screen
 import com.arise.fromtheashes.screens.login.Login_Screen
 import com.arise.fromtheashes.screens.products.AddProductsScreen
@@ -19,6 +20,9 @@ import com.arise.fromtheashes.screens.products.UpdateProductsScreen
 import com.arise.fromtheashes.screens.products.ViewProductsScreen
 import com.arise.fromtheashes.screens.register.Register_Screen
 import com.arise.fromtheashes.screens.splash.SplashScreen
+import com.arise.fromtheashes.screens.student.AddstudentScreen
+import com.arise.fromtheashes.screens.student.UpdatestudentScreen
+import com.arise.fromtheashes.screens.student.ViewStudents
 
 @Composable
 fun AppNavHost(
@@ -51,6 +55,13 @@ navController: NavHostController= rememberNavController(),
         }
         composable(ROUTE_UPDATE_PRODUCT+"/{id}") { passedData ->
             UpdateProductsScreen(navController, passedData.arguments!!.getString("id")!!)
+        }
+        composable(ROUTE_DASHBOARD) { DashboardScreen(navController) }
+        composable(ROUTE_ADD_STUDENT) { AddstudentScreen(navController) }
+        composable(ROUTE_VIEW_STUDENTS){ ViewStudents(navController) }
+        composable("$ROUTE_UPDATE_STUDENT/{studentId}") {
+                passedData -> UpdatestudentScreen(
+            navController, passedData.arguments?.getString("studentId")!! )
         }
 
 

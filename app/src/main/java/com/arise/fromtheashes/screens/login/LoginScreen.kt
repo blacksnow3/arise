@@ -33,14 +33,20 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.PasswordVisualTransformation
+import androidx.compose.ui.text.input.TextFieldValue
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
 import com.arise.fromtheashes.R
+import com.arise.fromtheashes.data.AuthViewModel
+import com.arise.fromtheashes.navigation.ROUTE_ADD_PRODUCT
+import com.arise.fromtheashes.navigation.ROUTE_ADD_STUDENT
+import com.arise.fromtheashes.navigation.ROUTE_VIEW_PRODUCT
 
 
 @Composable
@@ -76,13 +82,13 @@ fun Login_Screen(navController: NavHostController) {
 
 
         // Declare a variable to hold the username input
-
-        var email = remember { mutableStateOf("") }
-        var password = remember { mutableStateOf("") }
+        var context = LocalContext.current
+        var email by remember { mutableStateOf(TextFieldValue("")) }
+        var pass by remember { mutableStateOf(TextFieldValue("")) }
         // Create an OutlinedTextField for input
         OutlinedTextField(
-            value = email.value,
-            onValueChange = { email.value = it }, // Update the state when the user types
+            value = email,
+            onValueChange = { email = it }, // Update the state when the user types
             label = { Text(text = "Email Address") },
             singleLine = true,
             modifier = Modifier
@@ -101,8 +107,8 @@ fun Login_Screen(navController: NavHostController) {
         Spacer(modifier = Modifier.height(20.dp))
 
         OutlinedTextField(
-            value = password.value,
-            onValueChange = { password.value = it }, // Update the state when the user types
+            value = pass,
+            onValueChange = { pass = it }, // Update the state when the user types
             label = { Text(text = "password") },
             singleLine = true,
             visualTransformation = PasswordVisualTransformation(),
@@ -117,7 +123,11 @@ fun Login_Screen(navController: NavHostController) {
                 )}
         )
         Spacer(modifier = Modifier.height(20.dp))
-        Button(onClick = {navController.navigate("dashboard")}
+        Button(onClick = {
+         val mylogin= AuthViewModel(navController, context)
+            mylogin.login(email.text.trim(),pass.text.trim())
+            navController.navigate(ROUTE_ADD_STUDENT)
+            }
         ) {
             Text("Login")}
 
@@ -129,6 +139,9 @@ fun Login_Screen(navController: NavHostController) {
 
     }
 }
+
+
+
 @Preview
 @Composable
 fun loginprev(){

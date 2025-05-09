@@ -51,6 +51,9 @@ dependencies {
     implementation(libs.androidx.ui.tooling.preview)
     implementation(libs.androidx.material3)
     implementation(libs.firebase.auth)
+    implementation("androidx.compose.material3:material3:1.0.1")  // For Material3
+    implementation("androidx.compose.ui:ui:1.5.0")               // For Jetpack Compose UI
+    implementation("io.coil-kt:coil-compose:2.2.2")
     implementation(libs.firebase.database)
     implementation(libs.firebase.storage)
     testImplementation(libs.junit)
@@ -61,4 +64,8 @@ dependencies {
     debugImplementation(libs.androidx.ui.tooling)
     debugImplementation(libs.androidx.ui.test.manifest)
     implementation(libs.androidx.navigation.compose)
+
+    implementation ("com.squareup.retrofit2:retrofit:2.9.0")
+    implementation ("com.squareup.retrofit2:converter-gson:2.9.0")
+    implementation ("com.squareup.okhttp3:logging-interceptor:4.9.1")
 }

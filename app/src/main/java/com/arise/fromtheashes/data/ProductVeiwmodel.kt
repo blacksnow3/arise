@@ -1,7 +1,7 @@
 package com.arise.fromtheashes.data
 
 
-import android.app.ProgressDialog
+
 import android.content.Context
 import android.net.Uri
 import android.widget.Toast
@@ -9,6 +9,7 @@ import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.snapshots.SnapshotStateList
 import androidx.navigation.NavHostController
 import com.arise.fromtheashes.model.Product
+import com.arise.fromtheashes.model.Upload
 import com.arise.fromtheashes.navigation.ROUTE_LOGIN
 
 import com.google.firebase.database.DataSnapshot
@@ -21,27 +22,20 @@ import com.google.firebase.storage.FirebaseStorage
 
 class ProductVeiwmodel(var navController: NavHostController, var context: Context) {
     var authRepository: AuthViewModel
-    var progress: ProgressDialog
 
     init {
         authRepository = AuthViewModel(navController, context)
-        if (!authRepository.islogged() {
+        if (!authRepository.isloggedin()) {
             navController.navigate(ROUTE_LOGIN)
         }
-        progress = ProgressDialog(context)
-        progress.setTitle("Loading")
-        progress.setMessage("Please wait...")
     }
-
 
     fun saveProduct(productName: String, productQuantity: String, productPrice: String) {
         var id = System.currentTimeMillis().toString()
         var productData = Product(productName, productQuantity, productPrice, id)
         var productRef = FirebaseDatabase.getInstance().getReference()
-            .child("Products/$id")
-        progress.show()
+            .child("products/$id")
         productRef.setValue(productData).addOnCompleteListener {
-            progress.dismiss()
             if (it.isSuccessful) {
                 Toast.makeText(context, "Saving successful", Toast.LENGTH_SHORT).show()
             } else {
@@ -55,12 +49,9 @@ class ProductVeiwmodel(var navController: NavHostController, var context: Contex
         product: MutableState<Product>,
         products: SnapshotStateList<Product>
     ): SnapshotStateList<Product> {
-        var ref = FirebaseDatabase.getInstance().getReference().child("Products")
-
-        progress.show()
+        var ref = FirebaseDatabase.getInstance().getReference().child("products")
         ref.addValueEventListener(object : ValueEventListener {
             override fun onDataChange(snapshot: DataSnapshot) {
-                progress.dismiss()
                 products.clear()
                 for (snap in snapshot.children) {
                     val value = snap.getValue(Product::class.java)
@@ -78,10 +69,8 @@ class ProductVeiwmodel(var navController: NavHostController, var context: Contex
 
     fun DeleteProduct(id: String) {
         var delRef = FirebaseDatabase.getInstance().getReference()
-            .child("Products/$id")
-        progress.show()
+            .child("products/$id")
         delRef.removeValue().addOnCompleteListener {
-            progress.dismiss()
             if (it.isSuccessful) {
                 Toast.makeText(context, "Product deleted", Toast.LENGTH_SHORT).show()
             } else {
@@ -93,10 +82,8 @@ class ProductVeiwmodel(var navController: NavHostController, var context: Contex
     fun updateProduct(name: String, quantity: String, price: String, id: String) {
         var updateRef = FirebaseDatabase.getInstance().getReference()
             .child("Products/$id")
-        progress.show()
         var updateData = Product(name, quantity, price, id)
         updateRef.setValue(updateData).addOnCompleteListener {
-            progress.dismiss()
             if (it.isSuccessful) {
                 Toast.makeText(context, "Update successful", Toast.LENGTH_SHORT).show()
             } else {
@@ -105,42 +92,48 @@ class ProductVeiwmodel(var navController: NavHostController, var context: Contex
         }
     }
 
-    fun saveProductWithImage(productName:String, productQuantity:String, productPrice:String, filePath: Uri){
+    fun saveProductWithImage(
+        productName: String,
+        productQuantity: String,
+        productPrice: String,
+        filePath: Uri
+    ) {
         var id = System.currentTimeMillis().toString()
         var storageReference = FirebaseStorage.getInstance().getReference().child("Uploads/$id")
-        progress.show()
 
-        storageReference.putFile(filePath).addOnCompleteListener{
-            progress.dismiss()
-            if (it.isSuccessful){
+        storageReference.putFile(filePath).addOnCompleteListener {
+            if (it.isSuccessful) {
                 // Proceed to store other data into the db
                 storageReference.downloadUrl.addOnSuccessListener {
                     var imageUrl = it.toString()
-                   var houseData = Upload(productName,productQuantity,
-                        productPrice,imageUrl,id)
+                    var houseData = Upload(
+                        productName, productQuantity,
+                        productPrice, imageUrl, id
+                    )
                     var dbRef = FirebaseDatabase.getInstance()
                         .getReference().child("Uploads/$id")
                     dbRef.setValue(houseData)
                     Toast.makeText(context, "Upload successful", Toast.LENGTH_SHORT).show()
                 }
-            }else{
+            } else {
                 Toast.makeText(context, it.exception!!.message, Toast.LENGTH_SHORT).show()
             }
         }
     }
 
 
-   /*fun viewUploads(upload:MutableState<Upload>, uploads:SnapshotStateList<Upload>): SnapshotStateList<Upload> {
+    fun ViewUploads(
+        upload: MutableState<Upload>,
+        uploads: SnapshotStateList<Upload>
+    ): SnapshotStateList<Upload> {
         var ref = FirebaseDatabase.getInstance().getReference().child("Uploads")
 
-        progress.show()
         ref.addValueEventListener(object : ValueEventListener {
             override fun onDataChange(snapshot: DataSnapshot) {
-                progress.dismiss()
                 uploads.clear()
-                for (snap in snapshot.children){
+                for (snap in snapshot.children) {
                     val value = snap.getValue(Upload::class.java)
-                    upload.value = value!!
+                    upload.value = value !!
                     uploads.add(value)
                 }
             }
@@ -150,7 +143,5 @@ class ProductVeiwmodel(var navController: NavHostController, var context: Contex
             }
         })
         return uploads
-    }*/
-
-
+    }
 }
