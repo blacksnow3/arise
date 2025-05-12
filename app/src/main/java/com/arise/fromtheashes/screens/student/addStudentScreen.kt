@@ -45,6 +45,9 @@ import androidx.navigation.compose.rememberNavController
 import coil.compose.AsyncImage
 import com.arise.fromtheashes.R
 import com.arise.fromtheashes.data.StudentViewModel
+import com.arise.fromtheashes.navigation.ROUTE_ADD_STUDENT
+import com.arise.fromtheashes.navigation.ROUTE_DASHBOARD
+import com.arise.fromtheashes.navigation.ROUTE_VIEW_STUDENTS
 
 
 @Composable
@@ -109,7 +112,7 @@ fun AddstudentScreen(navController: NavController){
                 imageUri.value?.let {
                     studentViewModel.uploadStudentWithImage(it,context,name, gender, course, summary,navController)
                 }?:Toast.makeText(context,"Please pick an image",Toast.LENGTH_LONG).show()
-            }) {
+                navController.navigate(ROUTE_DASHBOARD)   }) {
                 Text(text = "SAVE")
             }
         }

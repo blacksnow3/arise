@@ -7,6 +7,7 @@ import androidx.navigation.NavHostController
 import com.arise.fromtheashes.model.User
 import com.arise.fromtheashes.navigation.ROUTE_ADD_PRODUCT
 import com.arise.fromtheashes.navigation.ROUTE_ADD_STUDENT
+import com.arise.fromtheashes.navigation.ROUTE_DASHBOARD
 import com.arise.fromtheashes.navigation.ROUTE_LOGIN
 import com.arise.fromtheashes.navigation.ROUTE_REGISTER
 import com.google.firebase.auth.FirebaseAuth
@@ -52,7 +53,7 @@ class AuthViewModel (
             mAuth.signInWithEmailAndPassword(email, pass).addOnCompleteListener {
                 if (it.isSuccessful) {
                     Toast.makeText(context, "Logged in Successfully", Toast.LENGTH_LONG).show()
-                    navController.navigate(ROUTE_ADD_STUDENT)
+                    navController.navigate(ROUTE_DASHBOARD)
                 } else {
                     Toast.makeText(context, "${it.exception!!.message}", Toast.LENGTH_LONG).show()
                     navController.navigate(ROUTE_LOGIN)

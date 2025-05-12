@@ -46,6 +46,7 @@ import com.arise.fromtheashes.R
 import com.arise.fromtheashes.data.AuthViewModel
 import com.arise.fromtheashes.navigation.ROUTE_ADD_PRODUCT
 import com.arise.fromtheashes.navigation.ROUTE_ADD_STUDENT
+import com.arise.fromtheashes.navigation.ROUTE_DASHBOARD
 import com.arise.fromtheashes.navigation.ROUTE_VIEW_PRODUCT
 
 
@@ -126,7 +127,7 @@ fun Login_Screen(navController: NavHostController) {
         Button(onClick = {
          val mylogin= AuthViewModel(navController, context)
             mylogin.login(email.text.trim(),pass.text.trim())
-            navController.navigate(ROUTE_ADD_STUDENT)
+            navController.navigate(ROUTE_DASHBOARD)
             }
         ) {
             Text("Login")}

@@ -50,6 +50,7 @@ import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
 import com.arise.fromtheashes.R
 import com.arise.fromtheashes.navigation.ROUTE_ADD_STUDENT
+import com.arise.fromtheashes.navigation.ROUTE_VIEW_STUDENTS
 
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -130,7 +131,7 @@ fun DashboardScreen(navController: NavController){
                     }
                 },
                 actions = {
-                    IconButton(onClick = {}) {
+                    IconButton(onClick = {navController.navigate(ROUTE_VIEW_STUDENTS)}) {
                         Icon(
                             imageVector = Icons.Filled.Person,
                             contentDescription = "Profile"
